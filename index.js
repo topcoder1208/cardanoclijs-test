@@ -120,7 +120,7 @@ const buildBuyTransaction = () => {
         const otherTxOutValues = txIn.filter((t) => Object.keys(t.value).length > 1 && Object.keys(t.value).indexOf(policyId + '.' + assetName) === -1);
         const filePath = cardanocliJs?.transactionBuild({
             // @ts-ignore
-            txIn: [...txIn, {
+            txIn: [{
                 // @ts-ignore
                 txHash: listUtxo.txHash,
                 // @ts-ignore
@@ -146,14 +146,7 @@ const buildBuyTransaction = () => {
                     lovelace: price
                 },
                 datumHash: ''
-            }, ...otherTxOutValues.map(o => {
-                o.value.lovelace = 1744798 + price;
-                return {
-                    address: buyerPk,
-                    value: o.value,
-                    datumHash: ''
-                }
-            })],
+            }],
             // @ts-ignore
             changeAddress: buyerPk,
             invalidBefore: currentTip?.slot,
