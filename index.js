@@ -23,11 +23,9 @@ const buildListingTransaction = () => {
     const price = 2000000;
     const directlySale = 'addr_test1wqg9q96l0k2r56t7dqhsp0926m7u0nqdjcc2pnpf7erlg8qw4et2m';
 
-    const directlySalePkh = resolvePlutusScriptHash(directlySale);
     const sellerPkh = resolvePaymentKeyHash(sellerPk);
     const marketplacePkh = resolvePaymentKeyHash(marketplacePk);
     const royaltyPkh = resolvePaymentKeyHash(royaltyPk);
-    console.log({ sellerPkh, marketplacePkh, royaltyPkh, directlySalePkh });
     const datumHash = cardanocliJs?.transactionHashScriptData(
         getListScript(price, sellerPkh, marketplacePkh, royaltyPkh, 3))
     console.log(datumHash)
