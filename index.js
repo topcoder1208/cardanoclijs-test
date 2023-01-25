@@ -43,7 +43,7 @@ const buildListingTransaction = () => {
             txOut: [{
                 address: directlySale,
                 value: {
-                    lovelace: assetUtxo.value.lovelace + 170000,
+                    lovelace: 1700000,
                     [policyId + '.' + assetId]: 1
                 },
                 datumHash: datumHash
