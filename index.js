@@ -75,6 +75,7 @@ const buildBuyTransaction = () => {
     const price = 2000000;
     const sellerPk = 'addr_test1qzsd2q6gn64t4r72puu5canr0mh0v4037fs4n9j589a6tfzpq4h29pkf2k5sh0sl2te298n4vfyrgqh47xq6a8k4rx8shfkkh4';
     const marketplacePk = 'addr_test1vq0smr77axmdr7sh3vsklpkqzq9hevv55tzm46vj4l3nxhqxe0vrc';
+    const directlySale = 'addr_test1wqg9q96l0k2r56t7dqhsp0926m7u0nqdjcc2pnpf7erlg8qw4et2m';
 
     const buyerPkh = resolvePaymentKeyHash(buyerPk);
     const marketplacePkh = resolvePaymentKeyHash(marketplacePk);
@@ -102,9 +103,9 @@ const buildBuyTransaction = () => {
             return;
         }
 
-        const marketplaceUtxos = cardanocliJs?.queryUtxo(marketplacePk)
-        console.log(marketplaceUtxos)
-        const listUtxo = marketplaceUtxos?.find(u => u.txHash === datumHash);
+        const contractUtxos = cardanocliJs?.queryUtxo(directlySale)
+        console.log(contractUtxos)
+        const listUtxo = contractUtxos?.find(u => u.txHash === datumHash);
         if (!listUtxo) {
             console.log(({ err: 'not found list hash' }))
             return;
