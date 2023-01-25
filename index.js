@@ -91,11 +91,14 @@ const buildBuyTransaction = () => {
         royaltyPkh,
         timestamp,
         3);
+    const sellDatumObject = getListScript(
+        price, royaltyPkh, marketplacePkh, royaltyPkh, 3);
     const closeRedeemerObject = {
         "constructor": 1,
         "fields": []
     };
     const datumHash = cardanocliJs?.transactionHashScriptData(buyDatumObject)
+    const sellDatumHash = cardanocliJs?.transactionHashScriptData(sellDatumObject)
     if (datumHash) {
         const txIn = cardanocliJs?.queryUtxo(buyerPk)
         if (!txIn) {
@@ -104,7 +107,7 @@ const buildBuyTransaction = () => {
         }
 
         const contractUtxos = cardanocliJs?.queryUtxo(directlySale)
-        console.log(contractUtxos, datumHash)
+        console.log(contractUtxos, datumHash, sellDatumHash)
         const listUtxo = contractUtxos?.find(u => u.datumHash === datumHash);
         if (!listUtxo) {
             console.log(({ err: 'not found list hash' }))
