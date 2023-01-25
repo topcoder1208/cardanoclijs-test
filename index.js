@@ -94,7 +94,7 @@ const buildBuyTransaction = () => {
     const sellDatumObject = getListScript(
         price, sellerPkh, marketplacePkh, royaltyPkh, 3);
 
-    const buyRedeemer = { "constructor": 1, "fields": [{ "list": [{ "constructor": 0, "fields": [{ "bytes": buyerPk }, { "map": [{ "k": { "bytes": policyId }, "v": { "map": [{ "k": { "bytes": assetName }, "v": { "int": 1 } }] } }] }] }] }] }
+    const buyRedeemer = { "constructor": 1, "fields": [{ "list": [{ "constructor": 0, "fields": [{ "bytes": buyerPkh }, { "map": [{ "k": { "bytes": policyId }, "v": { "map": [{ "k": { "bytes": assetName }, "v": { "int": 1 } }] } }] }] }] }] }
     const datumHash = cardanocliJs?.transactionHashScriptData(buyDatumObject)
     const sellDatumHash = cardanocliJs?.transactionHashScriptData(sellDatumObject)
     if (sellDatumHash) {
