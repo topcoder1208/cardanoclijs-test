@@ -96,6 +96,10 @@ const buildBuyTransaction = () => {
 
     const buyRedeemer = {
         "constructor": 1,
+        "fields": []
+    }
+    const buyRedeemer1 = {
+        "constructor": 1,
         "fields": [
             {
                 "list": [
