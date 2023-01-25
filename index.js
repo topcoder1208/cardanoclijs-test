@@ -119,7 +119,7 @@ const buildBuyTransaction = () => {
         const collateral = "82825820dbf7f56f844cc4b85daccb62bedf4eeff0a84cb060f0f79b206c7f087b3f0ba100825839002be4a303e36f628e2a06d977e16f77ce2b9046b8c56576bb5286d1be00c23aa3244cd60632116f82437b41232d7d2935a48aebc781c9ded21a004c4b40";
         const collateralUtxo = TransactionUnspentOutput.from_bytes(Buffer.from(collateral, 'hex'));
         const collateralTxIn = collateralUtxo.input().to_json()
-
+        console.log(collateralTxIn.index, collateralTxIn.transaction_id)
         const filePath = cardanocliJs?.transactionBuild({
             // @ts-ignore
             txIn: [{
