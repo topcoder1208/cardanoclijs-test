@@ -166,6 +166,7 @@ const buildBuyTransaction = () => {
     const royaltyPrice = (price - marketplacePrice) * 3 / 100;
     const sellerPrice = price - marketplacePrice - royaltyPrice;
     const sellDatumHash = cardanocliJs?.transactionHashScriptData(sellDatumObject)
+    console.log(sellDatumHash)
     if (sellDatumHash) {
         const txIn = cardanocliJs?.queryUtxo(buyerPk)
         if (!txIn) {
