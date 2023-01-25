@@ -145,7 +145,7 @@ const buildBuyTransaction = () => {
             txInCollateral: [
                 {
                     txHash: collateralTxIn.transaction_id,
-                    txIn: collateralTxIn.index,
+                    txId: collateralTxIn.index,
                 }
             ],
 
