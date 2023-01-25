@@ -243,12 +243,14 @@ const buildBuyTransaction = () => {
                 txId: t.txId
             }))],
 
-            // txInCollateral: [
-            //     {
-            //         txHash: collateralTxIn.transaction_id,
-            //         txId: collateralTxIn.index,
-            //     }
-            // ],
+            txInCollateral: [
+                {
+                    txHash: collateral.split('#')[0],
+                    txId: collateral.split('#')[1],
+                    // txHash: collateralTxIn.transaction_id,
+                    // txId: collateralTxIn.index,
+                }
+            ],
 
             txOut: [{
                 address: sellerPk,
