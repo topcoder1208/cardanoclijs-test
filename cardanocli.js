@@ -3,7 +3,6 @@ const os = require("os");
 const path = require("path");
 const dir = path.join(os.homedir(), "/configuration/cardano/");
 const shelleyGenesisPath = dir + "preprod-shelley-genesis.json";
-console.log(shelleyGenesisPath)
 const options = {
   shelleyGenesisPath: shelleyGenesisPath,
   network: "testnet-magic 1"

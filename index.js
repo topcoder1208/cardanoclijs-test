@@ -103,6 +103,7 @@ const buildBuyTransaction = () => {
         }
 
         const marketplaceUtxos = cardanocliJs?.queryUtxo(marketplacePk)
+        console.log(marketplaceUtxos)
         const listUtxo = marketplaceUtxos?.find(u => u.txHash === datumHash);
         if (!listUtxo) {
             console.log(({ err: 'not found list hash' }))
