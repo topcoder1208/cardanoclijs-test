@@ -188,6 +188,7 @@ const buildBuyTransaction = () => {
         const collateralTxIn = JSON.parse(collateralUtxo.input().to_json())
 
         const filePath = cardanocliJs?.transactionBuild({
+            alonzoEra: true,
             // @ts-ignore
             txIn: [{
                 // @ts-ignore
