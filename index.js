@@ -194,7 +194,8 @@ const buildBuyTransaction = () => {
                 // @ts-ignore
                 txHash: listUtxo.txHash,
                 // @ts-ignore
-                txId: listUtxo.txId
+                txId: listUtxo.txId,
+                datumHash: sellDatumHash
             },
             // @ts-ignore
             {
