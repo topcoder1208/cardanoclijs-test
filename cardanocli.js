@@ -1,12 +1,12 @@
-const CardanocliJs = require("cardanocli-js");
+const CardanocliJs = require("./lib");
 const os = require("os");
 const path = require("path");
 const dir = path.join(os.homedir(), "/configuration/cardano/");
-const shelleyGenesisPath = dir + "testnet-shelley-genesis.json";
+const shelleyGenesisPath = dir + "preprod-shelley-genesis.json";
 console.log(shelleyGenesisPath)
 const options = {
   shelleyGenesisPath: shelleyGenesisPath,
-  network: "testnet-magic 1097911063"
+  network: "testnet-magic 1"
 }
 
 const cardanocliJs = new CardanocliJs(options);
@@ -41,17 +41,22 @@ const generatePolicyID = (name) => {
 }
 
 const getListScript = (
+  price,
   sellerPkh,
   marketplacePkh,
   royaltyPkh,
-  activityTokenName,
-  activityPolicyId
+  royaltyPercentage
 ) => {
-  return `{
+  const activityTokenName = '4143544956495459';
+  const activityPolicyId = '20edea925974af2102c63adddbb6a6e789f8d3a16500b15bd1e1c32b';
+  const marketplacePrice = price * 2.5 / 100;
+  const royaltyPrice = (price - marketplacePrice) * royaltyPercentage / 100;
+  const sellerPrice = price - marketplacePrice - royaltyPrice;
+  return {
     "constructor": 0,
     "fields": [
       {
-        "bytes": "${sellerPkh}"
+        "bytes": sellerPkh
       },
       {
         "list": [
@@ -59,23 +64,24 @@ const getListScript = (
             "constructor": 0,
             "fields": [
               {
-                "bytes": "${sellerPkh}"
+                "bytes": sellerPkh
               },
               {
                 "map": [
                   {
                     "k": {
-                        "bytes": ""
-                      },
+                      "bytes": ""
+                    },
                     "v": {
-                      "map":[
-                        { "k":
+                      "map": [
+                        {
+                          "k":
                           {
                             "bytes": ""
                           },
                           "v":
                           {
-                            "int": 8000000
+                            "int": sellerPrice
                           }
                         }
                       ]
@@ -89,25 +95,26 @@ const getListScript = (
             "constructor": 0,
             "fields": [
               {
-                "bytes": "${marketplacePkh}"
+                "bytes": marketplacePkh
               },
               {
                 "map": [
                   {
                     "k":
-                      {
-                        "bytes": ""
-                      },
+                    {
+                      "bytes": ""
+                    },
                     "v": {
                       "map": [
-                        { "k":
+                        {
+                          "k":
                           {
                             "bytes": ""
                           }
-                        ,
+                          ,
                           "v":
                           {
-                            "int": 1000000
+                            "int": marketplacePrice
                           }
                         }
                       ]
@@ -121,23 +128,23 @@ const getListScript = (
             "constructor": 0,
             "fields": [
               {
-                "bytes": "${royaltyPkh}"
+                "bytes": royaltyPkh
               },
               {
                 "map": [
                   {
                     "k": {
-                        "bytes": ""
-                      },
+                      "bytes": ""
+                    },
                     "v": {
                       "map": [
                         {
                           "k": {
-                        "bytes": ""
-                      },
+                            "bytes": ""
+                          },
                           "v":
                           {
-                            "int": 1000000
+                            "int": royaltyPrice
                           }
                         }
                       ]
@@ -149,22 +156,194 @@ const getListScript = (
           }
         ]
       },
-      { "constructor": 1,
+      {
+        "constructor": 1,
         "fields": []
       },
       {
-        "bytes": "${activityTokenName}"
+        "bytes": activityTokenName
       },
       {
-        "bytes": "${activityPolicyId}"
+        "bytes": activityPolicyId
       }
     ]
-  }`
+  }
+}
+
+const getBuyScript = (
+  price,
+  assetName,
+  policyId,
+  buyerPkh,
+  marketplacePkh,
+  royaltyPkh,
+  timestamp,
+  royaltyPercentage,
+) => {
+  const activityTokenName = '4143544956495459';
+  const activityPolicyId = '20edea925974af2102c63adddbb6a6e789f8d3a16500b15bd1e1c32b';
+  const marketplacePrice = price * 2.5 / 100;
+  const royaltyPrice = (price - marketplacePrice) * royaltyPercentage / 100;
+  return {
+    "constructor": 0,
+    "fields": [
+      {
+        "bytes": buyerPkh
+      },
+      {
+        "list": [
+          {
+            "constructor": 0,
+            "fields": [
+              {
+                "bytes": buyerPkh
+              },
+              {
+                "map": [
+                  {
+                    "k": {
+                      "bytes": policyId
+                    },
+                    "v": {
+                      "map": [
+                        {
+                          "k": {
+                            "bytes": assetName
+                          },
+                          "v": {
+                            "int": 1
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "constructor": 0,
+            "fields": [
+              {
+                "bytes": marketplacePkh
+              },
+              {
+                "map": [
+                  {
+                    "k":
+                    {
+                      "bytes": ""
+                    },
+                    "v": {
+                      "map": [
+                        {
+                          "k":
+                          {
+                            "bytes": ""
+                          }
+                          ,
+                          "v":
+                          {
+                            "int": marketplacePrice
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "constructor": 0,
+            "fields": [
+              {
+                "bytes": royaltyPkh
+              },
+              {
+                "map": [
+                  {
+                    "k": {
+                      "bytes": ""
+                    },
+                    "v": {
+                      "map": [
+                        {
+                          "k": {
+                            "bytes": ""
+                          },
+                          "v":
+                          {
+                            "int": royaltyPrice
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "constructor": 0,
+        "fields": [
+          {
+            "constructor": 0,
+            "fields": [
+              {
+                "constructor": 0,
+                "fields": [
+                  {
+                    "int": timestamp
+                  }
+                ]
+              },
+              {
+                "constructor": 1,
+                "fields": []
+              },
+              {
+                "map": [
+                  {
+                    "k": {
+                      "bytes": ""
+                    },
+                    "v": {
+                      "map": [
+                        {
+                          "k": {
+                            "bytes": ""
+                          },
+                          "v":
+                          {
+                            "int": price
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "bytes": activityTokenName
+      },
+      {
+        "bytes": activityPolicyId
+      }
+    ]
+  }
 }
 
 module.exports = {
   cardanocliJs,
   createWallet,
   generatePolicyID,
-  getListScript
+  getListScript,
+  getBuyScript
 };
