@@ -166,7 +166,8 @@ const buildBuyTransaction = () => {
     const royaltyPrice = (price - marketplacePrice) * 3 / 100;
     const sellerPrice = price - marketplacePrice - royaltyPrice;
     const sellDatumHash = cardanocliJs?.transactionHashScriptData(sellDatumObject)
-    console.log(sellDatumHash)
+    const sellDatumHash2 = cardanocliJs?.transactionHashScriptData({ "constructor": 0, "fields": [{ "bytes": "a0d503489eaaba8fca0f394c76637eeef655f1f261599654397ba5a4" }, { "list": [{ "constructor": 0, "fields": [{ "bytes": "a0d503489eaaba8fca0f394c76637eeef655f1f261599654397ba5a4" }, { "map": [{ "k": { "bytes": "" }, "v": { "map": [{ "k": { "bytes": "" }, "v": { "int": 1891500 } }] } }] }] }, { "constructor": 0, "fields": [{ "bytes": "1f0d8fdee9b6d1fa178b216f86c0100b7cb194a2c5bae992afe3335c" }, { "map": [{ "k": { "bytes": "" }, "v": { "map": [{ "k": { "bytes": "" }, "v": { "int": 50000 } }] } }] }] }, { "constructor": 0, "fields": [{ "bytes": "0b687c9a27947c606ac466103c71127b28a95f51c8ab3134c9fa97be" }, { "map": [{ "k": { "bytes": "" }, "v": { "map": [{ "k": { "bytes": "" }, "v": { "int": 58500 } }] } }] }] }] }, { "constructor": 1, "fields": [] }, { "bytes": "4143544956495459" }, { "bytes": "20edea925974af2102c63adddbb6a6e789f8d3a16500b15bd1e1c32b" }] })
+    console.log(sellDatumHash, sellDatumHash2)
     if (sellDatumHash) {
         const txIn = cardanocliJs?.queryUtxo(buyerPk)
         if (!txIn) {
