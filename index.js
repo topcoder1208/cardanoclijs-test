@@ -222,7 +222,7 @@ const buildBuyTransaction = () => {
                 value: {
                     lovelace: sellerPrice
                 },
-                datumHash: ''
+                datumHash: sellDatumHash
             }, {
                 address: buyerPk,
                 value: {
@@ -235,13 +235,13 @@ const buildBuyTransaction = () => {
                 value: {
                     lovelace: marketplacePrice
                 },
-                datumHash: ''
+                datumHash: sellDatumHash
             }, {
                 address: royaltyPk,
                 value: {
                     lovelace: royaltyPrice
                 },
-                datumHash: ''
+                datumHash: sellDatumHash
             }, {
                 address: exchanger,
                 value: {
