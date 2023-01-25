@@ -166,5 +166,5 @@ const buildBuyTransaction = () => {
     }
 }
 
-buildListingTransaction()
-// buildBuyTransaction()
+// buildListingTransaction()
+buildBuyTransaction()
