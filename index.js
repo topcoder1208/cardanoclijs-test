@@ -248,7 +248,8 @@ const buildBuyTransaction = () => {
                 value: {
                     lovelace: 2000000,
                     [activeToken]: 1
-                }
+                },
+                datumHash: sellDatumHash
             }, {
                 datumEmbed: sellerExhcangeDatum
             }, {
@@ -256,7 +257,8 @@ const buildBuyTransaction = () => {
                 value: {
                     lovelace: 2000000,
                     [activeToken]: 1
-                }
+                },
+                datumHash: sellDatumHash
             }, {
                 datumEmbed: buyerExchangeDatum
             }],
