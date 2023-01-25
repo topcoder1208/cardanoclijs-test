@@ -151,7 +151,7 @@ const buildBuyTransaction = () => {
     //         }
     //     ]
     // }
-    const sellerExhcangeDatum = '/home/ubuntu/dev/marketplace/temp/testnet/redeemers/0/sellerExchange.json'
+    const sellerExhcangeDatum = '/home/ubuntu/dev/marketplace/temp/testnet/datums/0/sellerExchange.json'
 
     // const buyerExchangeDatum = {
     //     "constructor": 0,
@@ -166,7 +166,7 @@ const buildBuyTransaction = () => {
     //         }
     //     ]
     // }
-    const buyerExchangeDatum = '/home/ubuntu/dev/marketplace/temp/testnet/redeemers/0/buyerExchange.json'
+    const buyerExchangeDatum = '/home/ubuntu/dev/marketplace/temp/testnet/datums/0/buyerExchange.json'
 
     // const activeMinterPlutus = {
     //     "type": "PlutusScriptV1",
