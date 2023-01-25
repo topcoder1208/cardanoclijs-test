@@ -104,8 +104,8 @@ const buildBuyTransaction = () => {
         }
 
         const contractUtxos = cardanocliJs?.queryUtxo(directlySale)
-        console.log(contractUtxos)
-        const listUtxo = contractUtxos?.find(u => u.txHash === datumHash);
+        console.log(contractUtxos, datumHash)
+        const listUtxo = contractUtxos?.find(u => u.datumHash === datumHash);
         if (!listUtxo) {
             console.log(({ err: 'not found list hash' }))
             return;
