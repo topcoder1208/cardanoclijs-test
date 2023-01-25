@@ -66,14 +66,22 @@ const buildListingTransaction = () => {
 }
 
 const buildBuyTransaction = () => {
-    const buyerPk = 'addr_test1qq47fgcrudhk9r32qmvh0ct0wl8zhyzxhrzk2a4m22rdr0sqcga2xfzv6crryyt0sfphksfr947jjddy3t4u0qwfmmfq2h0pj8';
-
-    const assetName = '54657374';
-    const policyId = '9b7f532518d0d917fc462d7a36e19ba5af95f427de10ce567d4ab9e9';
-    const price = 2000000;
-    const sellerPk = 'addr_test1qzsd2q6gn64t4r72puu5canr0mh0v4037fs4n9j589a6tfzpq4h29pkf2k5sh0sl2te298n4vfyrgqh47xq6a8k4rx8shfkkh4';
-    const royaltyPk = 'addr_test1vq9ksly6y728ccr2c3npq0r3zfaj322l28y2kvf5e8af00s05v5nw';
+    // const buyerPk = 'addr_test1qq47fgcrudhk9r32qmvh0ct0wl8zhyzxhrzk2a4m22rdr0sqcga2xfzv6crryyt0sfphksfr947jjddy3t4u0qwfmmfq2h0pj8';
+    const buyerPk = 'addr_test1vq6ww4d9qtgu059ssk6kuzamj8hy5qgnal7cu5y3qnf949gt56mv7';
+    // const sellerPk = 'addr_test1qzsd2q6gn64t4r72puu5canr0mh0v4037fs4n9j589a6tfzpq4h29pkf2k5sh0sl2te298n4vfyrgqh47xq6a8k4rx8shfkkh4';
+    const sellerPk = 'addr_test1vqu3wfxvmkume0lvqpu47duvykl3n7p3fj3s227jw4452xgfgls2x';
     const marketplacePk = 'addr_test1vq0smr77axmdr7sh3vsklpkqzq9hevv55tzm46vj4l3nxhqxe0vrc';
+
+    // const assetName = '54657374';
+    const assetName = '123456';
+    // const policyId = '9b7f532518d0d917fc462d7a36e19ba5af95f427de10ce567d4ab9e9';
+    const policyId = 'd6cfdbedd242056674c0e51ead01785497e3a48afbbb146dc72ee1e2';
+
+    // const price = 2000000;
+    const price = 10000000;
+
+    const royaltyPk = 'addr_test1vq9ksly6y728ccr2c3npq0r3zfaj322l28y2kvf5e8af00s05v5nw';
+
     const directlySale = 'addr_test1wqg9q96l0k2r56t7dqhsp0926m7u0nqdjcc2pnpf7erlg8qw4et2m';
     const exchanger = 'addr_test1wqy6jy6syr2hcy5e7waj5gy7d7wzcdgfj0d2umvhl0gdqdchhc0ch';
 
@@ -85,86 +93,103 @@ const buildBuyTransaction = () => {
     const activeTokenName = '4143544956495459';
     const activeToken = activeMinterh + '.' + activeTokenName;
 
-    const sellDatumObject = getListScript(
-        price, sellerPkh, marketplacePkh, royaltyPkh, 3);
+    // const sellDatumObject = getListScript(
+    //     price, sellerPkh, marketplacePkh, royaltyPkh, 3);
+    const sellDatumObject = '~/dev/marketplace/temp/testnet/datums/0/buy.json'
 
-    const buyRedeemer = {
-        "constructor": 1,
-        "fields": [
-            {
-                "list": [
-                    {
-                        "constructor": 0,
-                        "fields": [
-                            {
-                                "bytes": buyerPkh
-                            },
-                            {
-                                "map": [
-                                    {
-                                        "k": {
-                                            "bytes": policyId
-                                        },
-                                        "v": {
-                                            "map": [
-                                                {
-                                                    "k": {
-                                                        "bytes": assetName
-                                                    },
-                                                    "v": {
-                                                        "int": 1
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
-    }
+    // const buyRedeemer = {
+    //     "constructor": 1,
+    //     "fields": [
+    //         {
+    //             "list": [
+    //                 {
+    //                     "constructor": 0,
+    //                     "fields": [
+    //                         {
+    //                             "bytes": buyerPkh
+    //                         },
+    //                         {
+    //                             "map": [
+    //                                 {
+    //                                     "k": {
+    //                                         "bytes": policyId
+    //                                     },
+    //                                     "v": {
+    //                                         "map": [
+    //                                             {
+    //                                                 "k": {
+    //                                                     "bytes": assetName
+    //                                                 },
+    //                                                 "v": {
+    //                                                     "int": 1
+    //                                                 }
+    //                                             }
+    //                                         ]
+    //                                     }
+    //                                 }
+    //                             ]
+    //                         }
+    //                     ]
+    //                 }
+    //             ]
+    //         }
+    //     ]
+    // }
+    const buyRedeemer = '~/dev/marketplace/temp/testnet/redeemers/0/buy.json'
 
-    const sellerExhcangeDatum = {
-        "constructor": 0,
-        "fields": [
-            {
-                "constructor": 0,
-                "fields": [
-                    {
-                        "bytes": sellerPkh
-                    }
-                ]
-            }
-        ]
-    }
+    // const sellerExhcangeDatum = {
+    //     "constructor": 0,
+    //     "fields": [
+    //         {
+    //             "constructor": 0,
+    //             "fields": [
+    //                 {
+    //                     "bytes": sellerPkh
+    //                 }
+    //             ]
+    //         }
+    //     ]
+    // }
+    const sellerExhcangeDatum = '~/dev/marketplace/temp/testnet/redeemers/0/sellerExchange.json'
 
-    const buyerExchangeDatum = {
-        "constructor": 0,
-        "fields": [
-            {
-                "constructor": 0,
-                "fields": [
-                    {
-                        "bytes": buyerPkh
-                    }
-                ]
-            }
-        ]
-    }
+    // const buyerExchangeDatum = {
+    //     "constructor": 0,
+    //     "fields": [
+    //         {
+    //             "constructor": 0,
+    //             "fields": [
+    //                 {
+    //                     "bytes": buyerPkh
+    //                 }
+    //             ]
+    //         }
+    //     ]
+    // }
+    const buyerExchangeDatum = '~/dev/marketplace/temp/testnet/redeemers/0/buyerExchange.json'
 
-    const activeMinterPlutus = {
-        "type": "PlutusScriptV1",
-        "description": "",
-        "cborHex": "590565590562010000333233223332223322323233322233223332223322332232323233223233322233223322332233223332223232323222332230020012232232325335300d330063333573466e1d40112002201b23333573466e1d40152000201b232635303133573804406404204003e6666ae68cdc39aab9d5002480008cc050c8c8c8c8c8c8c8c8c8c8c8cccd5cd19b8735573aa0149000119999999998111918161bac00135742a0146ae854024d5d0a804199aa81dbae503a35742a00e6ae854018d5d0a8029aba1500435742a0066ae854008d5d09aba25002232635303c33573805a07a05805626ae8940044d5d1280089aba25001135744a00226ae8940044d5d1280089aba25001135744a00226aae7940044dd50009aba1500232323333573466e1cd55cea800a4000460366eb8d5d09aab9e5002232635303333573804806804604426ea8004d5d09aba25002232635303033573804206204003e2060264c6a605e66ae712401035054350003001f135573ca00226ea80044d55ce9baa0012235300e00122353012002222222222235301e00b25335302100f153353502e333550120140010082153353502f3335501301501200121333573466e20005200001a01913501403a135013039133355015302412001235302b0012235302f00122235303700322335303b002202023335501e302d1200123301e00200101900b112232230020013200135502f2253353502c0011502122135355031002225335300c33008002007135026001130060031232635302600101622333573466e3c0080040180144488cd54008c8cd405088ccd4d402400c88008008004d4d401c00488004cd401c894cd4c014008401c4004010004488008488004800448848cc00400c008480048848cc00400c0088004888888888848cccccccccc00402c02802402001c01801401000c0088004848c00400880044880084880048004c8004d5406c88448894cd4d406c0044d4d401800c88004884ccd4d402001488008c010008ccd54c01c4800401401000448848cc00400c00848004c8004d5406088cccd55cf8009280c119a80b9919191999ab9a3370e6aae754009200023300b35742a004646464646666ae68cdc39aab9d5003480008ccc048c8c8c8cccd5cd19b8735573aa004900011980d9919191999ab9a3370ea0029001118109bae357426aae79400c8cccd5cd19b875002480008c08cdd71aba135573ca008464c6a604c66ae7005c09c0580540504d55cea80089baa00135742a0046ae84d5d1280111931a981099ab9c012022011010135573ca00226ea8004d5d0a801999aa80e3ae501b35742a0046464646666ae68cdc3a800a400046a0326eb8d5d09aab9e500323333573466e1d4009200225019232635302233573802604602402202026aae7540044dd50009aba135744a004464c6a603a66ae700380780340304d5d1280089aab9e5001137540026ae84d5d1280111931a980c19ab9c009019008007135573ca00226ea8004d5d080118019aba2002014499241035054310022123300100300220012221233300100400300220011212230020031122001120012212330010030022001212230020032122300100320011335500175ceb44488c88c008dd5800990009aa80511191999aab9f0022500b233500a335500d300635573aa004600a6aae794008c010d5d100180389aba100112001200111220021221223300100400312001112212330010030021120011123230010012233003300200200148810841435449564954590033322233500248811c071638c15e6620e650a78a1ef7b4596d729b77ec60850492f4d3072e0033500248811c1050175f7d943a697e682f00bcaad6fdc7cc0d9630a0cc29f647f41c005003112200212212233001004003120011"
-    }
+    // const activeMinterPlutus = {
+    //     "type": "PlutusScriptV1",
+    //     "description": "",
+    //     "cborHex": "590565590562010000333233223332223322323233322233223332223322332232323233223233322233223322332233223332223232323222332230020012232232325335300d330063333573466e1d40112002201b23333573466e1d40152000201b232635303133573804406404204003e6666ae68cdc39aab9d5002480008cc050c8c8c8c8c8c8c8c8c8c8c8cccd5cd19b8735573aa0149000119999999998111918161bac00135742a0146ae854024d5d0a804199aa81dbae503a35742a00e6ae854018d5d0a8029aba1500435742a0066ae854008d5d09aba25002232635303c33573805a07a05805626ae8940044d5d1280089aba25001135744a00226ae8940044d5d1280089aba25001135744a00226aae7940044dd50009aba1500232323333573466e1cd55cea800a4000460366eb8d5d09aab9e5002232635303333573804806804604426ea8004d5d09aba25002232635303033573804206204003e2060264c6a605e66ae712401035054350003001f135573ca00226ea80044d55ce9baa0012235300e00122353012002222222222235301e00b25335302100f153353502e333550120140010082153353502f3335501301501200121333573466e20005200001a01913501403a135013039133355015302412001235302b0012235302f00122235303700322335303b002202023335501e302d1200123301e00200101900b112232230020013200135502f2253353502c0011502122135355031002225335300c33008002007135026001130060031232635302600101622333573466e3c0080040180144488cd54008c8cd405088ccd4d402400c88008008004d4d401c00488004cd401c894cd4c014008401c4004010004488008488004800448848cc00400c008480048848cc00400c0088004888888888848cccccccccc00402c02802402001c01801401000c0088004848c00400880044880084880048004c8004d5406c88448894cd4d406c0044d4d401800c88004884ccd4d402001488008c010008ccd54c01c4800401401000448848cc00400c00848004c8004d5406088cccd55cf8009280c119a80b9919191999ab9a3370e6aae754009200023300b35742a004646464646666ae68cdc39aab9d5003480008ccc048c8c8c8cccd5cd19b8735573aa004900011980d9919191999ab9a3370ea0029001118109bae357426aae79400c8cccd5cd19b875002480008c08cdd71aba135573ca008464c6a604c66ae7005c09c0580540504d55cea80089baa00135742a0046ae84d5d1280111931a981099ab9c012022011010135573ca00226ea8004d5d0a801999aa80e3ae501b35742a0046464646666ae68cdc3a800a400046a0326eb8d5d09aab9e500323333573466e1d4009200225019232635302233573802604602402202026aae7540044dd50009aba135744a004464c6a603a66ae700380780340304d5d1280089aab9e5001137540026ae84d5d1280111931a980c19ab9c009019008007135573ca00226ea8004d5d080118019aba2002014499241035054310022123300100300220012221233300100400300220011212230020031122001120012212330010030022001212230020032122300100320011335500175ceb44488c88c008dd5800990009aa80511191999aab9f0022500b233500a335500d300635573aa004600a6aae794008c010d5d100180389aba100112001200111220021221223300100400312001112212330010030021120011123230010012233003300200200148810841435449564954590033322233500248811c071638c15e6620e650a78a1ef7b4596d729b77ec60850492f4d3072e0033500248811c1050175f7d943a697e682f00bcaad6fdc7cc0d9630a0cc29f647f41c005003112200212212233001004003120011"
+    // }
+    const activeMinterPlutus = '~/dev/marketplace/scripts/activity-minter.plutus'
+    // const mintActivityTokenFile = {
+    //     "constructor": 0,
+    //     "fields": []
+    // }
+    const mintActivityTokenFile = '~/dev/marketplace/scripts/redeemers/mint.json';
 
-    const marketplacePrice = price * 2.5 / 100;
-    const royaltyPrice = (price - marketplacePrice) * 3 / 100;
+    // const marketplacePrice = price * 2.5 / 100;
+    const marketplacePrice = 1000000;
+    // const royaltyPrice = (price - marketplacePrice) * 3 / 100;
+    const royaltyPrice = 1000000;
     const sellerPrice = price - marketplacePrice - royaltyPrice;
-    const sellDatumHash = cardanocliJs?.transactionHashScriptData(sellDatumObject)
+    const sellDatumHash2 = cardanocliJs?.transactionHashScriptData(JSON.parse(fs.readFileSync(sellDatumObject)))
+    const sellDatumHash = '17de5fda4462ee46989ccaca48c7e55a778b79d0c48d40886c7283b022205ba8';
+    console.log({
+        sellDatumHash,
+        sellDatumHash2
+    })
 
     if (sellDatumHash) {
         const txIn = cardanocliJs?.queryUtxo(buyerPk)
@@ -183,9 +208,9 @@ const buildBuyTransaction = () => {
         console.log(listUtxo)
         const currentTip = cardanocliJs?.queryTip();
 
-        const collateral = "82825820dbf7f56f844cc4b85daccb62bedf4eeff0a84cb060f0f79b206c7f087b3f0ba100825839002be4a303e36f628e2a06d977e16f77ce2b9046b8c56576bb5286d1be00c23aa3244cd60632116f82437b41232d7d2935a48aebc781c9ded21a004c4b40";
-        const collateralUtxo = TransactionUnspentOutput.from_bytes(Buffer.from(collateral, 'hex'));
-        const collateralTxIn = JSON.parse(collateralUtxo.input().to_json())
+        // const collateral = "82825820dbf7f56f844cc4b85daccb62bedf4eeff0a84cb060f0f79b206c7f087b3f0ba100825839002be4a303e36f628e2a06d977e16f77ce2b9046b8c56576bb5286d1be00c23aa3244cd60632116f82437b41232d7d2935a48aebc781c9ded21a004c4b40";
+        // const collateralUtxo = TransactionUnspentOutput.from_bytes(Buffer.from(collateral, 'hex'));
+        // const collateralTxIn = JSON.parse(collateralUtxo.input().to_json())
 
         const extraUtxos = txIn.filter((t) => Object.keys(t.value).length > 1);
         const extraValues = {};
@@ -195,6 +220,10 @@ const buildBuyTransaction = () => {
             keys.map(k => extraValues[k] = e.value[k]);
         })
         console.log(extraValues);
+
+        const execSync = typeof window !== "undefined" || require("child_process").execSync;
+        const collateral = execSync(`cardano-cli-balance-fixer collateral --address ${buyerPk} --testnet-magic 1`).toString()
+        console.log(collateral)
 
         const filePath = cardanocliJs?.transactionBuild({
             alonzoEra: true,
@@ -207,17 +236,18 @@ const buildBuyTransaction = () => {
                 script: DirectSalePlutus,
                 datum: sellDatumObject,
                 redeemer: buyRedeemer,
+                isPath: true
             }, ...txIn.map(t => ({
                 txHash: t.txHash,
                 txId: t.txId
             }))],
 
-            txInCollateral: [
-                {
-                    txHash: collateralTxIn.transaction_id,
-                    txId: collateralTxIn.index,
-                }
-            ],
+            // txInCollateral: [
+            //     {
+            //         txHash: collateralTxIn.transaction_id,
+            //         txId: collateralTxIn.index,
+            //     }
+            // ],
 
             txOut: [{
                 address: sellerPk,
@@ -227,7 +257,8 @@ const buildBuyTransaction = () => {
             }, {
                 address: buyerPk,
                 value: {
-                    lovelace: 1700000,
+                    // lovelace: 1700000,
+                    lovelace: 1724100,
                     [policyId + '.' + assetName]: 1
                 },
             }, {
@@ -253,6 +284,7 @@ const buildBuyTransaction = () => {
                     [activeToken]: 1
                 },
                 datumEmbed: sellerExhcangeDatum,
+                isPath: true,
             }, {
                 address: exchanger,
                 value: {
@@ -260,6 +292,7 @@ const buildBuyTransaction = () => {
                     [activeToken]: 1
                 },
                 datumEmbed: buyerExchangeDatum,
+                isPath: true,
             }],
             // @ts-ignore
             changeAddress: buyerPk,
@@ -268,12 +301,11 @@ const buildBuyTransaction = () => {
                 asset: activeToken,
                 quantity: 2
             }, {
-                script: activeMinterPlutus
+                script: activeMinterPlutus,
+                isPath: true,
             }, {
-                redeemer: {
-                    "constructor": 0,
-                    "fields": []
-                }
+                redeemer: mintActivityTokenFile,
+                isPath: true,
             }],
             invalidBefore: currentTip?.slot,
             invalidAfter: currentTip ? currentTip.slot + 150 : undefined
