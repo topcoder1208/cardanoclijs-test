@@ -117,7 +117,7 @@ const buildBuyTransaction = () => {
         console.log(listUtxo)
         const currentTip = cardanocliJs?.queryTip();
 
-        const otherTxOutValues = txIn.filter((t) => Object.keys(t.value).length > 1 && Object.keys(t.value).indexOf(policyId + '.' + assetName) === -1);
+        console.log(txIn)
         const filePath = cardanocliJs?.transactionBuild({
             // @ts-ignore
             txIn: [{
