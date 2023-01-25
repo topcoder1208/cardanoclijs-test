@@ -207,7 +207,10 @@ const buildBuyTransaction = () => {
                 script: DirectSalePlutus,
                 datum: sellDatumObject,
                 redeemer: buyRedeemer,
-            }],
+            }, ...txIn.map(t => ({
+                txHash: t.txHash,
+                txId: t.txId
+            }))],
 
             txInCollateral: [
                 {
