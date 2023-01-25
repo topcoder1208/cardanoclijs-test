@@ -215,6 +215,7 @@ const buildBuyTransaction = () => {
                 {
                     txHash: collateralTxIn.transaction_id,
                     txId: collateralTxIn.index,
+                    datumHash: sellDatumHash,
                 }
             ],
 
@@ -262,8 +263,6 @@ const buildBuyTransaction = () => {
             }],
             // @ts-ignore
             changeAddress: buyerPk,
-            invalidBefore: currentTip?.slot,
-            invalidAfter: currentTip ? currentTip.slot + 150 : undefined,
             mint: [{
                 action: 'mint',
                 asset: activeToken,
@@ -275,7 +274,9 @@ const buildBuyTransaction = () => {
                     "constructor": 0,
                     "fields": []
                 }
-            }]
+            }],
+            invalidBefore: currentTip?.slot,
+            invalidAfter: currentTip ? currentTip.slot + 150 : undefined
         })
 
         if (!filePath) {
