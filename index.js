@@ -248,17 +248,17 @@ const buildBuyTransaction = () => {
                 value: {
                     lovelace: 2000000,
                     [activeToken]: 1
-                }
-            }, {
-                datumEmbed: sellerExhcangeDatum
+                },
+                // datumEmbed: sellerExhcangeDatum,
+                datumHash: sellDatumHash
             }, {
                 address: exchanger,
                 value: {
                     lovelace: 2000000,
                     [activeToken]: 1
-                }
-            }, {
-                datumEmbed: buyerExchangeDatum
+                },
+                // datumEmbed: buyerExchangeDatum,
+                datumHash: sellDatumHash
             }],
             // @ts-ignore
             changeAddress: buyerPk,
