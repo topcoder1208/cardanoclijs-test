@@ -184,7 +184,7 @@ const buildBuyTransaction = () => {
     // const royaltyPrice = (price - marketplacePrice) * 3 / 100;
     const royaltyPrice = 1000000;
     const sellerPrice = price - marketplacePrice - royaltyPrice;
-    const sellDatumHash2 = cardanocliJs?.transactionHashScriptData(JSON.parse(fs.readFileSync(sellDatumObject)))
+    const sellDatumHash2 = cardanocliJs?.transactionHashStringScriptData(fs.readFileSync(sellDatumObject).toString())
     const sellDatumHash = '17de5fda4462ee46989ccaca48c7e55a778b79d0c48d40886c7283b022205ba8';
     console.log({
         sellDatumHash,
