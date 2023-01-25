@@ -138,44 +138,7 @@ const buildBuyTransaction = () => {
             },
             // @ts-ignore
             {
-                redeemer: {
-                    "constructor": 1,
-                    "fields": [
-                        {
-                            "list": [
-                                {
-                                    "constructor": 0,
-                                    "fields": [
-                                        {
-                                            "bytes": buyerPk
-                                        },
-                                        {
-                                            "map": [
-                                                {
-                                                    "k": {
-                                                        "bytes": policyId
-                                                    },
-                                                    "v": {
-                                                        "map": [
-                                                            {
-                                                                "k": {
-                                                                    "bytes": assetName
-                                                                },
-                                                                "v": {
-                                                                    "int": 1
-                                                                }
-                                                            }
-                                                        ]
-                                                    }
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
-                    ]
-                }
+                redeemer: { "constructor": 1, "fields": [{ "list": [{ "constructor": 0, "fields": [{ "bytes": buyerPk }, { "map": [{ "k": { "bytes": policyId }, "v": { "map": [{ "k": { "bytes": assetName }, "v": { "int": 1 } }] } }] }] }] }] }
             }
             ],
 
