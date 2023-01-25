@@ -187,6 +187,15 @@ const buildBuyTransaction = () => {
         const collateralUtxo = TransactionUnspentOutput.from_bytes(Buffer.from(collateral, 'hex'));
         const collateralTxIn = JSON.parse(collateralUtxo.input().to_json())
 
+        const extraUtxos = txIn.filter((t) => Object.keys(t.value).length > 1);
+        const extraValues = {};
+        extraUtxos.map((e) => {
+            delete e.value.lovelace;
+            const keys = Object.keys(e.value);
+            keys.map(k => extraValues[k] = e.value[k]);
+        })
+        console.log(extraValues);
+
         const filePath = cardanocliJs?.transactionBuild({
             alonzoEra: true,
             // @ts-ignore
@@ -195,27 +204,15 @@ const buildBuyTransaction = () => {
                 txHash: listUtxo.txHash,
                 // @ts-ignore
                 txId: listUtxo.txId,
-                datumHash: sellDatumHash
-            },
-            // @ts-ignore
-            {
-                script: DirectSalePlutus
-            },
-            // @ts-ignore
-            {
-                datum: sellDatumObject
-            },
-            // @ts-ignore
-            {
-                redeemer: buyRedeemer
-            }
-            ],
+                script: DirectSalePlutus,
+                datum: sellDatumObject,
+                redeemer: buyRedeemer,
+            }],
 
             txInCollateral: [
                 {
                     txHash: collateralTxIn.transaction_id,
                     txId: collateralTxIn.index,
-                    datumHash: sellDatumHash,
                 }
             ],
 
@@ -224,42 +221,42 @@ const buildBuyTransaction = () => {
                 value: {
                     lovelace: sellerPrice
                 },
-                datumHash: sellDatumHash
             }, {
                 address: buyerPk,
                 value: {
                     lovelace: 1700000,
                     [policyId + '.' + assetName]: 1
                 },
-                datumHash: sellDatumHash
             }, {
                 address: marketplacePk,
                 value: {
                     lovelace: marketplacePrice
                 },
-                datumHash: sellDatumHash
             }, {
                 address: royaltyPk,
                 value: {
                     lovelace: royaltyPrice
                 },
-                datumHash: sellDatumHash
+            }, {
+                address: buyerPk,
+                value: {
+                    lovelace: 3000000,
+                    ...extraValues
+                }
             }, {
                 address: exchanger,
                 value: {
                     lovelace: 2000000,
                     [activeToken]: 1
                 },
-                // datumEmbed: sellerExhcangeDatum,
-                datumHash: sellDatumHash
+                datumEmbed: sellerExhcangeDatum,
             }, {
                 address: exchanger,
                 value: {
                     lovelace: 2000000,
                     [activeToken]: 1
                 },
-                // datumEmbed: buyerExchangeDatum,
-                datumHash: sellDatumHash
+                datumEmbed: buyerExchangeDatum,
             }],
             // @ts-ignore
             changeAddress: buyerPk,
