@@ -45,32 +45,30 @@ const buildBuyTransaction = () => {
     const remainTxIns = execSync(`cardano-cli-balance-fixer input --address ${spenderAddress} ${network}`);
     const collateral = execSync(`cardano-cli-balance-fixer collateral --address ${spenderAddress} ${network}`);
 
-    const buildCommand = `cardano-cli transaction build \
-    --alonzo-era \
-    ${network} \
-    ${remainTxIns} \
-    --tx-in ${utxoScript} \
-    --tx-in-script-file ${nftValidatorFile} \
-    --tx-in-datum-file ${datumFile} \
-    --tx-in-redeemer-file ${redeemerFile} \
-    --tx-in-collateral ${collateral} \
-    --tx-out "${sellerAddr} + ${sellerAmount}" \
-    --tx-out "${buyerAddr} + ${value}" \
-    --tx-out "${marketplaceAddr} + ${marketPlaceAmount}" \
-    --tx-out "${royalitiesAddr} + ${royalitiesAmount}" \
-    --tx-out "${spenderAddress} + 3000000 lovelace ${extraOutput}" \
-    --tx-out "${exchanger} + 2000000 lovelace + 1 ${activityToken}" \
-    --tx-out-datum-embed-file ${sellerExchangerDatum} \
-    --tx-out "${exchanger} + 2000000 lovelace + 1 ${activityToken}" \
-    --tx-out-datum-embed-file ${buyerExchangerDatum} \
-    --change-address ${spenderAddress} \
-    --protocol-params-file ${protocolParams} \
-    --mint "${mintValue}" \
-    --mint-script-file ${activityMinterFile} \
-    --mint-redeemer-file ${mintActivityTokenFile} \
-    --invalid-before ${startSlot} \
-    --invalid-hereafter ${nextTenSlots} \
-    --out-file ${transactionBuildOutputFile}`
+    const buildCommand = `cardano-cli transaction build --alonzo-era ${network
+        } ${remainTxIns
+        } --tx-in ${utxoScript
+        } --tx-in-script-file ${nftValidatorFile
+        } --tx-in-datum-file ${datumFile
+        } --tx-in-redeemer-file ${redeemerFile
+        } --tx-in-collateral ${collateral
+        } --tx-out "${sellerAddr} + ${sellerAmount
+        }" --tx-out "${buyerAddr} + ${value
+        }" --tx-out "${marketplaceAddr} + ${marketPlaceAmount
+        }" --tx-out "${royalitiesAddr} + ${royalitiesAmount
+        }" --tx-out "${spenderAddress} + 3000000 lovelace ${extraOutput
+        }" --tx-out "${exchanger} + 2000000 lovelace + 1 ${activityToken
+        }" --tx-out-datum-embed-file ${sellerExchangerDatum
+        } --tx-out "${exchanger} + 2000000 lovelace + 1 ${activityToken
+        }" --tx-out-datum-embed-file ${buyerExchangerDatum
+        } --change-address ${spenderAddress
+        } --protocol-params-file ${protocolParams
+        } --mint "${mintValue
+        }" --mint-script-file ${activityMinterFile
+        } --mint-redeemer-file ${mintActivityTokenFile
+        } --invalid-before ${startSlot
+        } --invalid-hereafter ${nextTenSlots
+        } --out-file ${transactionBuildOutputFile}`
 
     execSync(buildCommand)
     const buildResult = fs.readFileSync(transactionBuildOutputFile).toString();
