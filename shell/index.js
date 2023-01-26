@@ -42,7 +42,8 @@ const buildBuyTransaction = () => {
     const startSlot = currentSlot
     const nextTenSlots = parseInt(currentSlot) + 150;
 
-    const remainTxIns = execSync(`cardano-cli-balance-fixer input --address ${spenderAddress} ${network}`).toString().trim();
+    // const remainTxIns = execSync(`cardano-cli-balance-fixer input --address ${spenderAddress} ${network}`).toString().trim();
+    const remainTxIns = '';
     const collateral = execSync(`cardano-cli-balance-fixer collateral --address ${spenderAddress} ${network}`).toString().trim();
 
     const buildCommand = `cardano-cli transaction build --alonzo-era ${network
