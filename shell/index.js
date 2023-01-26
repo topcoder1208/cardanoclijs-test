@@ -42,15 +42,18 @@ const buildBuyTransaction = () => {
     const startSlot = currentSlot
     const nextTenSlots = currentSlot + 150;
 
+    const remainTxIns = execSync(`cardano-cli-balance-fixer input --address ${spenderAddress} ${network}`);
+    const collateral = execSync(`cardano-cli-balance-fixer collateral --address ${spenderAddress} ${network}`);
+
     const buildCommand = `cardano-cli transaction build \
     --alonzo-era \
     ${network} \
-    $(cardano-cli-balance-fixer input --address ${spenderAddress} ${network} ) \
+    ${remainTxIns} \
     --tx-in ${utxoScript} \
     --tx-in-script-file ${nftValidatorFile} \
     --tx-in-datum-file ${datumFile} \
     --tx-in-redeemer-file ${redeemerFile} \
-    --tx-in-collateral $(cardano-cli-balance-fixer collateral --address ${spenderAddress} ${network} ) \
+    --tx-in-collateral ${collateral} \
     --tx-out "${sellerAddr} + ${sellerAmount}" \
     --tx-out "${buyerAddr} + ${value}" \
     --tx-out "${marketplaceAddr} + ${marketPlaceAmount}" \
