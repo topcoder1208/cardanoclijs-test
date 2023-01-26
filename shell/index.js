@@ -21,8 +21,8 @@ const buildBuyTransaction = () => {
     const nftValidatorFile = "/home/ubuntu/dev/marketplace/scripts/direct-sale.plutus"
     const scriptHash = "addr_test1wqg9q96l0k2r56t7dqhsp0926m7u0nqdjcc2pnpf7erlg8qw4et2m"
 
-    const utxoScript = execSync(`cardano-cli query utxo --address ${scriptHash} ${network} | grep ${datumHash} | head -n 1 | cardano-cli-balance-fixer parse-as-utxo`).toString()
-    const changeOutput = execSync(`cardano-cli-balance-fixer change --address ${spenderAddress} -o "${subtractOutput}" ${network}`).toString()
+    const utxoScript = execSync(`cardano-cli query utxo --address ${scriptHash} ${network} | grep ${datumHash} | head -n 1 | cardano-cli-balance-fixer parse-as-utxo`).toString().trim()
+    const changeOutput = execSync(`cardano-cli-balance-fixer change --address ${spenderAddress} -o "${subtractOutput}" ${network}`).toString().trim()
 
     const activityToken = "20edea925974af2102c63adddbb6a6e789f8d3a16500b15bd1e1c32b.4143544956495459"
     const mintValue = `2 ${activityToken}`
@@ -38,12 +38,12 @@ const buildBuyTransaction = () => {
     const sellerExchangerDatum = '/home/ubuntu/dev/marketplace/temp/testnet/datums/0/sellerExchange.json'
     const protocolParams = '/home/ubuntu/dev/marketplace/scripts/testnet/protocol-parameters.json'
 
-    const currentSlot = execSync(`cardano-cli query tip ${network} | jq .slot`)
+    const currentSlot = execSync(`cardano-cli query tip ${network} | jq .slot`).toString().trim()
     const startSlot = currentSlot
     const nextTenSlots = parseInt(currentSlot) + 150;
 
-    const remainTxIns = execSync(`cardano-cli-balance-fixer input --address ${spenderAddress} ${network}`);
-    const collateral = execSync(`cardano-cli-balance-fixer collateral --address ${spenderAddress} ${network}`);
+    const remainTxIns = execSync(`cardano-cli-balance-fixer input --address ${spenderAddress} ${network}`).toString().trim();
+    const collateral = execSync(`cardano-cli-balance-fixer collateral --address ${spenderAddress} ${network}`).toString().trim();
 
     const buildCommand = `cardano-cli transaction build --alonzo-era ${network
         } ${remainTxIns
