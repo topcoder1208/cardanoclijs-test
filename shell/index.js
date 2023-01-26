@@ -40,7 +40,7 @@ const buildBuyTransaction = () => {
 
     const currentSlot = execSync(`cardano-cli query tip ${network} | jq .slot`)
     const startSlot = currentSlot
-    const nextTenSlots = currentSlot + 150;
+    const nextTenSlots = parseInt(currentSlot) + 150;
 
     const remainTxIns = execSync(`cardano-cli-balance-fixer input --address ${spenderAddress} ${network}`);
     const collateral = execSync(`cardano-cli-balance-fixer collateral --address ${spenderAddress} ${network}`);
