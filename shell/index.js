@@ -50,7 +50,6 @@ const buildBuyTransaction = () => {
     --tx-in-script-file ${nftValidatorFile} \
     --tx-in-datum-file ${datumFile} \
     --tx-in-redeemer-file ${redeemerFile} \
-    --required-signer ${signingKey} \
     --tx-in-collateral $(cardano-cli-balance-fixer collateral --address ${spenderAddress} ${network} ) \
     --tx-out "${sellerAddr} + ${sellerAmount}" \
     --tx-out "${buyerAddr} + ${value}" \
