@@ -1,3 +1,4 @@
+const { resolvePaymentKeyHash } = require('@meshsdk/core');
 const fs = require('fs');
 const execSync = typeof window !== "undefined" || require("child_process").execSync;
 const network = '--testnet-magic 1';
@@ -45,7 +46,12 @@ const buildBuyTransaction = () => {
     const remainTxIns = execSync(`cardano-cli-balance-fixer input --address ${spenderAddress} ${network}`).toString().trim();
     const collateral = execSync(`cardano-cli-balance-fixer collateral --address ${spenderAddress} ${network}`).toString().trim();
 
+
     const signingKey = '34e755a502d1c7d0b085b56e0bbb91ee4a0113effd8e509104d25a95'
+    const spenderHash = resolvePaymentKeyHash(spenderAddress);
+    console.log({ spenderHash, signingKey })
+    return;
+
     const buildCommand = `cardano-cli transaction build --alonzo-era ${network
         } ${remainTxIns
         } --tx-in ${utxoScript
