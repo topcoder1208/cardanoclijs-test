@@ -52,7 +52,7 @@ const buildBuyTransaction = () => {
         } --tx-in-script-file ${nftValidatorFile
         } --tx-in-datum-file ${datumFile
         } --tx-in-redeemer-file ${redeemerFile
-        } --required-signer ${signingKey
+        } --required-signer-hash ${signingKey
         } --tx-in-collateral ${collateral
         } --tx-out "${sellerAddr} + ${sellerAmount
         }" --tx-out "${buyerAddr} + ${value
