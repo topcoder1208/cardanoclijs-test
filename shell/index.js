@@ -45,7 +45,7 @@ const buildBuyTransaction = () => {
     const remainTxIns = execSync(`cardano-cli-balance-fixer input --address ${spenderAddress} ${network}`).toString().trim();
     const collateral = execSync(`cardano-cli-balance-fixer collateral --address ${spenderAddress} ${network}`).toString().trim();
 
-    const signingKey = '/home/ubuntu/testnet/marketplace.skey'
+    const signingKey = 'addr_test1vq6ww4d9qtgu059ssk6kuzamj8hy5qgnal7cu5y3qnf949gt56mv7'
     const buildCommand = `cardano-cli transaction build --alonzo-era ${network
         } ${remainTxIns
         } --tx-in ${utxoScript
