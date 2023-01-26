@@ -4,8 +4,12 @@ const execSync = typeof window !== "undefined" || require("child_process").execS
 const network = '--testnet-magic 1';
 const transactionBuildOutputFile = "./tx.raw"
 
+const buildSellTransaction = () => {
+
+}
+
 const buildBuyTransaction = () => {
-    const buyerAddr = 'addr_test1vq6ww4d9qtgu059ssk6kuzamj8hy5qgnal7cu5y3qnf949gt56mv7'
+    const buyerAddr = 'addr_test1qq47fgcrudhk9r32qmvh0ct0wl8zhyzxhrzk2a4m22rdr0sqcga2xfzv6crryyt0sfphksfr947jjddy3t4u0qwfmmfq2h0pj8'
     const sellerAddr = 'addr_test1vqu3wfxvmkume0lvqpu47duvykl3n7p3fj3s227jw4452xgfgls2x'
     const marketplaceAddr = 'addr_test1vq0smr77axmdr7sh3vsklpkqzq9hevv55tzm46vj4l3nxhqxe0vrc'
     const value = '1724100 lovelace + 1 d6cfdbedd242056674c0e51ead01785497e3a48afbbb146dc72ee1e2.123456'
@@ -16,7 +20,7 @@ const buildBuyTransaction = () => {
     const royalitiesAmount = '1000000 lovelace'
     const redeemerFile = "/home/ubuntu/dev/marketplace/temp/testnet/redeemers/0/buy.json"
     const datumHash = "17de5fda4462ee46989ccaca48c7e55a778b79d0c48d40886c7283b022205ba8"
-    const spenderAddress = "addr_test1vq6ww4d9qtgu059ssk6kuzamj8hy5qgnal7cu5y3qnf949gt56mv7"
+    const spenderAddress = "addr_test1qq47fgcrudhk9r32qmvh0ct0wl8zhyzxhrzk2a4m22rdr0sqcga2xfzv6crryyt0sfphksfr947jjddy3t4u0qwfmmfq2h0pj8"
     const buyerExchangerDatum = "/home/ubuntu/dev/marketplace/temp/testnet/datums/0/buyerExchange.json"
     const subtractOutput = "0 lovelace"
     const nftValidatorFile = "/home/ubuntu/dev/marketplace/scripts/direct-sale.plutus"
@@ -46,12 +50,7 @@ const buildBuyTransaction = () => {
     const remainTxIns = execSync(`cardano-cli-balance-fixer input --address ${spenderAddress} ${network}`).toString().trim();
     const collateral = execSync(`cardano-cli-balance-fixer collateral --address ${spenderAddress} ${network}`).toString().trim();
 
-
-    const signingKey = '34e755a502d1c7d0b085b56e0bbb91ee4a0113effd8e509104d25a95'
-    const spenderHash = resolvePaymentKeyHash(spenderAddress);
-    console.log({ spenderHash, signingKey })
-    return;
-
+    const signingKey = resolvePaymentKeyHash(spenderAddress);
     const buildCommand = `cardano-cli transaction build --alonzo-era ${network
         } ${remainTxIns
         } --tx-in ${utxoScript
@@ -79,9 +78,9 @@ const buildBuyTransaction = () => {
         } --out-file ${transactionBuildOutputFile}`
 
     execSync(buildCommand)
-    const buildResult = fs.readFileSync(transactionBuildOutputFile).toString();
+    const buildResult = JSON.parse(fs.readFileSync(transactionBuildOutputFile).toString());
     console.log(buildResult);
-    return buildResult;
+    return buildResult.cborHex;
 }
 
 buildBuyTransaction()
